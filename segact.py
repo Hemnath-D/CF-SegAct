@@ -4,6 +4,7 @@ import glob
 import json
 import os
 import requests
+import time
 
 
 def extractProblemCodes(response):
@@ -44,13 +45,19 @@ def moveMatchingFiles(sol_dir, dest_dir, matching_files):
     print(str(len(matching_files)) + " file(s) moved to " + dest_dir + " from " + sol_dir)
 
 def segFiles():
-    #Get all solved Problem Codes using codeforces API
+    """Method segFiles() - Moves the AC files from solutions directory to the destination directory"""
+    #1. Get all solved Problem Codes using codeforces API
     problem_codes = getProblemCodes(cfg.HANDLE, cfg.MAX_SUBMISSIONS)
-    #Get the list of all solution files in local system which matches the
+    #2. Get the list of all solution files in local system which matches the
     #retrieved Problem Code
     matching_files = getMatchingFiles(cfg.SOL_DIR, problem_codes)
-    #Move the files to the DEST_DIR
+    #3. Move the files to the DEST_DIR
     moveMatchingFiles(cfg.SOL_DIR, cfg.DEST_DIR, matching_files)
     
+def runAtInterval():
+    """ Method runAtInterval() - Run the code at the user specified intervals"""
+    while True:
+        segFiles()
+        time.sleep(cfg.INTERVAL)
 
-segFiles()
+runAtInterval()

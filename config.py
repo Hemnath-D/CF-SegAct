@@ -6,3 +6,5 @@ DEST_DIR = '/home/hemnath/solutions/AC Files'
 HANDLE = 'hemnath_d'
 #Define the maximum number of solutions to be retreived from codeforces. Default is set to 1000
 MAX_SUBMISSIONS = 10
+#Define the time interval(In Seconds)
+INTERVAL = 90
